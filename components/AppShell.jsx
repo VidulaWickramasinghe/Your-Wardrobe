@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
+import { useState } from "react";
 import {
   Home,
   Shirt,
@@ -8,22 +8,22 @@ import {
   CreditCard,
   Sparkles,
   LogOut,
-} from 'lucide-react';
+} from "lucide-react";
 
-import { TIERS } from '../lib/constants';
-import NavItem from '../components/NavItem';
-import LoginScreen from '../components/screens/LoginScreen';
-import WardrobeScreen from '../components/screens/WardrobeScreen';
-import OutfitsScreen from '../components/screens/OutfitsScreen';
-import CalendarScreen from '../components/screens/CalendarScreen';
-import PremiumScreen from '../components/screens/PremiumScreen';
-import AddClothesModal from '../components/modals/AddClothesModal';
-import OutfitBuilderModal from '../components/modals/OutfitBuilderModal';
-import AddEventModal from '../components/modals/AddEventModal';
+import { TIERS } from "../lib/constants";
+import NavItem from "./NavItem";
+import LoginScreen from "./LoginScreen";
+import WardrobeScreen from "./WardrobeScreen";
+import OutfitsScreen from "./OutfitsScreen";
+import CalendarScreen from "./CalendarScreen";
+import PremiumScreen from "./PremiumScreen";
+import AddClothesModal from "./modals/AddClothesModal";
+import OutfitBuilderModal from "./modals/OutfitBuilderModal";
+import AddEventModal from "./modals/AddEventModal";
 
-export default function Page() {
+export default function AppShell() {
   const [user, setUser] = useState(null);
-  const [activeTab, setActiveTab] = useState('wardrobe');
+  const [activeTab, setActiveTab] = useState("wardrobe");
 
   const [clothes, setClothes] = useState([]);
   const [outfits, setOutfits] = useState([]);
@@ -34,7 +34,7 @@ export default function Page() {
   const [isAddingEvent, setIsAddingEvent] = useState(false);
 
   const handleLogin = (email) => {
-    setUser({ email, tier: 'free' });
+    setUser({ email, tier: "free" });
   };
 
   const handleLogout = () => {
@@ -42,10 +42,11 @@ export default function Page() {
     setClothes([]);
     setOutfits([]);
     setEvents([]);
+    setActiveTab("wardrobe");
   };
 
   const handleUpgrade = (tierKey) => {
-    setUser({ ...user, tier: tierKey });
+    setUser((prev) => ({ ...prev, tier: tierKey }));
     alert(`Upgraded to ${TIERS[tierKey].name} plan!`);
   };
 
@@ -68,13 +69,17 @@ export default function Page() {
               Wardrobe
             </h1>
           </div>
-          <button onClick={handleLogout} className="text-gray-400 hover:text-gray-600">
+
+          <button
+            onClick={handleLogout}
+            className="text-gray-400 hover:text-gray-600"
+          >
             <LogOut size={20} />
           </button>
         </header>
 
         <main className="flex-1 overflow-y-auto bg-gray-50 pb-24">
-          {activeTab === 'wardrobe' && (
+          {activeTab === "wardrobe" && (
             <WardrobeScreen
               clothes={clothes}
               setClothes={setClothes}
@@ -84,7 +89,7 @@ export default function Page() {
             />
           )}
 
-          {activeTab === 'outfits' && (
+          {activeTab === "outfits" && (
             <OutfitsScreen
               outfits={outfits}
               setOutfits={setOutfits}
@@ -94,7 +99,7 @@ export default function Page() {
             />
           )}
 
-          {activeTab === 'calendar' && (
+          {activeTab === "calendar" && (
             <CalendarScreen
               events={events}
               outfits={outfits}
@@ -102,8 +107,11 @@ export default function Page() {
             />
           )}
 
-          {activeTab === 'premium' && (
-            <PremiumScreen currentTierKey={user.tier} onUpgrade={handleUpgrade} />
+          {activeTab === "premium" && (
+            <PremiumScreen
+              currentTierKey={user.tier}
+              onUpgrade={handleUpgrade}
+            />
           )}
         </main>
 
@@ -111,26 +119,26 @@ export default function Page() {
           <NavItem
             icon={<Home size={24} />}
             label="Wardrobe"
-            isActive={activeTab === 'wardrobe'}
-            onClick={() => setActiveTab('wardrobe')}
+            isActive={activeTab === "wardrobe"}
+            onClick={() => setActiveTab("wardrobe")}
           />
           <NavItem
             icon={<Sparkles size={24} />}
             label="Outfits"
-            isActive={activeTab === 'outfits'}
-            onClick={() => setActiveTab('outfits')}
+            isActive={activeTab === "outfits"}
+            onClick={() => setActiveTab("outfits")}
           />
           <NavItem
             icon={<CalendarIcon size={24} />}
             label="Calendar"
-            isActive={activeTab === 'calendar'}
-            onClick={() => setActiveTab('calendar')}
+            isActive={activeTab === "calendar"}
+            onClick={() => setActiveTab("calendar")}
           />
           <NavItem
             icon={<CreditCard size={24} />}
             label="Premium"
-            isActive={activeTab === 'premium'}
-            onClick={() => setActiveTab('premium')}
+            isActive={activeTab === "premium"}
+            onClick={() => setActiveTab("premium")}
           />
         </nav>
 
@@ -138,7 +146,7 @@ export default function Page() {
           <AddClothesModal
             onClose={() => setIsAddingClothes(false)}
             onAdd={(item) => {
-              setClothes([...clothes, item]);
+              setClothes((prev) => [...prev, item]);
               setIsAddingClothes(false);
             }}
           />
@@ -149,7 +157,7 @@ export default function Page() {
             clothes={clothes}
             onClose={() => setIsBuildingOutfit(false)}
             onSave={(outfit) => {
-              setOutfits([...outfits, outfit]);
+              setOutfits((prev) => [...prev, outfit]);
               setIsBuildingOutfit(false);
             }}
           />
@@ -160,8 +168,8 @@ export default function Page() {
             outfits={outfits}
             onClose={() => setIsAddingEvent(false)}
             onSave={(event) => {
-              setEvents(
-                [...events, event].sort(
+              setEvents((prev) =>
+                [...prev, event].sort(
                   (a, b) => new Date(a.date) - new Date(b.date)
                 )
               );
