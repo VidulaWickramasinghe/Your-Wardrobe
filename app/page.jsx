@@ -126,55 +126,10 @@ export default function Page() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 px-3 py-4 text-gray-800 sm:px-6 sm:py-8">
-      <div className="mx-auto flex min-h-[92vh] w-full max-w-6xl overflow-hidden rounded-[2rem] border border-white/10 bg-white shadow-[0_30px_120px_rgba(15,23,42,0.45)]">
-        <aside className="hidden w-80 flex-col justify-between bg-slate-950 p-8 text-white lg:flex">
-          <div>
-            <div className="mb-12 flex items-center gap-3">
-              <div className="rounded-2xl bg-indigo-500/20 p-3 text-indigo-200">
-                <Shirt size={28} />
-              </div>
-              <div>
-                <p className="text-sm uppercase tracking-[0.3em] text-slate-400">
-                  Digital Wardrobe
-                </p>
-                <h1 className="text-2xl font-bold">Closet planner for every day</h1>
-              </div>
-            </div>
-
-            <div className="space-y-4 rounded-[2rem] border border-white/10 bg-white/5 p-6 backdrop-blur">
-              <p className="text-sm font-semibold text-indigo-200">
-                Upgraded experience
-              </p>
-              <h2 className="text-3xl font-black leading-tight">
-                Build outfits, plan events, and manage your style in one place.
-              </h2>
-              <p className="text-sm leading-6 text-slate-300">
-                This redesign adds onboarding, premium feature gates, profile
-                management, richer modals, and a more polished mobile-first UI.
-              </p>
-            </div>
-
-            <div className="mt-6 grid grid-cols-2 gap-4">
-              <MarketingStat label="Planner views" value="5" />
-              <MarketingStat label="Outfit slots" value="4" />
-              <MarketingStat label="Tier options" value="4" />
-              <MarketingStat label="Demo items" value="3" />
-            </div>
-          </div>
-
-          <div className="rounded-[2rem] border border-indigo-400/20 bg-gradient-to-br from-indigo-500/20 via-purple-500/10 to-transparent p-6">
-            <p className="text-sm font-semibold text-indigo-200">What changed</p>
-            <ul className="mt-3 space-y-3 text-sm text-slate-200">
-              <li>• Guided splash, welcome, and auth flow.</li>
-              <li>• Dashboard, wardrobe, outfit, event, and profile tabs.</li>
-              <li>• Premium upsell paths for AI, tracking, and contributors.</li>
-            </ul>
-          </div>
-        </aside>
-
-        <div className="flex min-h-[92vh] flex-1 justify-center bg-gradient-to-br from-slate-100 via-white to-indigo-50 p-0 sm:p-4">
-          <div className="relative flex h-[92vh] w-full max-w-md flex-col overflow-hidden bg-white sm:rounded-[2rem] sm:border sm:border-slate-200 sm:shadow-2xl">
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 px-3 py-4 text-gray-800 sm:px-6 sm:py-8">
+      <div className="mx-auto flex min-h-[92vh] w-full max-w-5xl items-center justify-center rounded-[2rem] border border-white/10 bg-white/5 p-0 shadow-[0_30px_120px_rgba(15,23,42,0.45)] backdrop-blur sm:p-4">
+        <div className="flex min-h-[92vh] w-full justify-center bg-gradient-to-br from-slate-100 via-white to-indigo-50 p-0 sm:min-h-[86vh] sm:rounded-[2rem] sm:p-4">
+          <div className="relative flex h-[92vh] w-full max-w-md flex-col overflow-hidden bg-white sm:h-[84vh] sm:rounded-[2rem] sm:border sm:border-slate-200 sm:shadow-2xl">
             {currentScreen === 'splash' && (
               <SplashScreen onComplete={() => setCurrentScreen('welcome')} />
             )}
@@ -425,16 +380,6 @@ export default function Page() {
   );
 }
 
-function MarketingStat({ label, value }) {
-  return (
-    <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-      <p className="text-2xl font-black text-white">{value}</p>
-      <p className="mt-1 text-xs uppercase tracking-[0.2em] text-slate-400">
-        {label}
-      </p>
-    </div>
-  );
-}
 
 function NavItem({ icon, label, isActive, onClick }) {
   return (
